@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>360° virtual sayohat — Geologiya fanlari universiteti</title>
+  <meta name="description" content="Geologiya fanlari universiteti kampusi va Davlat geologiya muzeyi bo'ylab 360° virtual sayohat." />
+  <meta property="og:title" content="360° virtual sayohat — Geologiya fanlari universiteti" />
+  <meta property="og:description" content="Universitet kampusi va Davlat geologiya muzeyini 360° panoramalarda ko'ring." />
+  <meta property="og:image" content="assets/kampus.jpg" />
+  <meta name="theme-color" content="#21481c" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <style>
+    /* unigeo.uz ranglari (Geology-university/src/assets/main.scss) */
+    :root {
+      --main: #21481c;
+      --main-2: #28ad60;
+      --logo: #3db166;
+      --accent: #ac2128;
+      --ink: #1e202f;
+      --text: #676c7c;
+      --bg: #f7f9fa;
+      --card: #ffffff;
+      --line: #e6e4e4;
+      --shadow: 0 2px 10px rgba(0, 0, 0, .08);
+      --shadow-lg: 0 18px 40px -12px rgba(33, 72, 28, .35);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #f2f3f6;
+        --text: #a9adbb;
+        --bg: #1e202f;
+        --card: #292c43;
+        --line: #36395a;
+        --shadow: 0 2px 10px rgba(0, 0, 0, .3);
+        --shadow-lg: 0 18px 40px -12px rgba(0, 0, 0, .6);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: "Roboto", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(1140px, 100% - 32px); margin: 0 auto; }
+
+    /* ---------- Header ---------- */
+    .topbar {
+      position: absolute; inset: 0 0 auto 0; z-index: 5;
+      background: rgba(33, 72, 28, .75);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 70px; gap: 12px; }
+    .brand { display: flex; align-items: center; gap: 10px; color: #fff; }
+    .brand img { width: 50px; height: auto; }
+    .brand span { font-size: 12px; font-weight: 700; letter-spacing: .12rem; line-height: 1.3; text-transform: uppercase; }
+    .brand b { display: block; font-size: 17px; font-weight: 600; letter-spacing: .1rem; }
+    .top-actions { display: flex; align-items: center; gap: 14px; }
+    .lang { display: flex; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; overflow: hidden; }
+    .lang button {
+      border: 0; background: transparent; color: #fff; font: 500 12px/1 "Roboto", sans-serif;
+      padding: 7px 10px; cursor: pointer; letter-spacing: .05em;
+    }
+    .lang button[aria-pressed="true"] { background: #fff; color: var(--main); }
+    .site-link { color: #fff; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; opacity: .9; }
+    .site-link:hover { opacity: 1; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative; overflow: hidden; color: #fff;
+      padding: 150px 0 120px;
+      background: #14300f;
+    }
+    .hero-pano {
+      position: absolute; inset: 0; overflow: hidden; opacity: .55;
+    }
+    .pano-track {
+      position: absolute; top: 0; left: 0; height: 100%;
+      aspect-ratio: 6400 / 448;
+      background-repeat: repeat-x;
+      background-size: 50% 100%;
+      animation: pan 90s linear infinite;
+      will-change: transform;
+    }
+    .hero-pano .pano-track { background-image: url("assets/hero.jpg"); animation-duration: 140s; }
+    @keyframes pan { to { transform: translateX(-50%); } }
+    .hero::after {
+      content: ""; position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(20, 48, 15, .55) 0%, rgba(20, 48, 15, .25) 45%, rgba(20, 48, 15, .9) 100%);
+    }
+    .hero .wrap { position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25);
+      padding: 6px 14px; border-radius: 999px;
+    }
+    .eyebrow i { width: 8px; height: 8px; border-radius: 50%; background: var(--logo); box-shadow: 0 0 0 4px rgba(61,177,102,.3); }
+    .hero h1 {
+      font-size: clamp(32px, 5.4vw, 56px); line-height: 1.1; font-weight: 700;
+      margin: 20px 0 16px; max-width: 760px; letter-spacing: -.01em;
+    }
+    .hero p { font-size: clamp(16px, 1.8vw, 19px); font-weight: 300; max-width: 620px; margin: 0; opacity: .92; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 36px; }
+    .hero-stats div { border-left: 3px solid var(--logo); padding-left: 12px; }
+    .hero-stats strong { display: block; font-size: 28px; font-weight: 700; line-height: 1.1; }
+    .hero-stats span { font-size: 13px; opacity: .8; }
+
+    /* ---------- Tour cards ---------- */
+    .tours { margin-top: -64px; position: relative; z-index: 2; padding-bottom: 72px; }
+    .section-title { display: flex; align-items: center; gap: 12px; margin: 0 0 22px; color: #fff; font-size: 15px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .card {
+      position: relative; isolation: isolate;
+      background: var(--card); border-radius: 15px; overflow: hidden;
+      border: 1px solid var(--line); box-shadow: var(--shadow);
+      display: flex; flex-direction: column;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .card-media {
+      position: relative; aspect-ratio: 16 / 9; overflow: hidden; cursor: pointer;
+      background: #1e202f;
+    }
+    .card-media .pano-track { animation-duration: 80s; }
+    .card:hover .pano-track { animation-duration: 80s; }
+    .card[data-tour="kampus"] .pano-track { background-image: url("assets/kampus.jpg"); }
+    .card[data-tour="muzey"] .pano-track { background-image: url("assets/muzey.jpg"); }
+    .card-media::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,.55) 100%);
+    }
+    .badge-360 {
+      position: absolute; top: 14px; left: 14px; z-index: 1;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.92); color: var(--main);
+      font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 999px;
+    }
+    .badge-360 svg { width: 16px; height: 16px; }
+    .count {
+      position: absolute; right: 14px; bottom: 12px; z-index: 1; color: #fff;
+      font-size: 13px; font-weight: 500; display: flex; align-items: center;
+    }
+    .play {
+      position: absolute; left: 50%; top: 50%; z-index: 1;
+      width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%;
+      background: rgba(33, 72, 28, .85); color: #fff;
+      display: grid; place-items: center;
+      box-shadow: 0 0 0 8px rgba(255,255,255,.18);
+      transition: transform .3s ease, background .3s ease;
+    }
+    .play svg { width: 30px; height: 30px; margin-left: 4px; }
+    .card:hover .play { transform: scale(1.08); background: var(--main-2); }
+    .card-body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+    .card-kicker { color: var(--main-2); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .card h2 { font-size: 24px; line-height: 1.25; margin: 6px 0 10px; font-weight: 700; }
+    .card p { color: var(--text); margin: 0 0 16px; font-size: 15px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; padding: 0; list-style: none; }
+    .chips li {
+      font-size: 13px; padding: 5px 11px; border-radius: 999px;
+      background: rgba(40, 173, 96, .1); color: var(--main);
+      border: 1px solid rgba(40, 173, 96, .25);
+    }
+    @media (prefers-color-scheme: dark) { .chips li { color: #8fdcab; } }
+    .btn {
+      margin-top: auto; align-self: flex-start;
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--main); color: #fff; border: 0; cursor: pointer;
+      font: 500 15px/1 "Roboto", sans-serif; padding: 14px 22px; border-radius: 10px;
+      transition: background .2s ease, gap .2s ease;
+    }
+    .btn:hover { background: var(--main-2); gap: 14px; }
+    .btn svg { width: 18px; height: 18px; }
+
+    /* ---------- How to ---------- */
+    .howto { padding: 8px 0 72px; }
+    .howto h3 { text-align: center; font-size: 26px; margin: 0 0 6px; }
+    .howto .sub { text-align: center; color: var(--text); margin: 0 0 30px; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .step {
+      background: var(--card); border: 1px solid var(--line); border-radius: 15px;
+      padding: 22px; box-shadow: var(--shadow); display: flex; gap: 14px; align-items: flex-start;
+    }
+    .step-ico {
+      flex: none; width: 46px; height: 46px; border-radius: 12px;
+      background: rgba(33, 72, 28, .08); color: var(--main);
+      display: grid; place-items: center;
+    }
+    @media (prefers-color-scheme: dark) { .step-ico { background: rgba(61,177,102,.15); color: #8fdcab; } }
+    .step-ico svg { width: 24px; height: 24px; }
+    .step h4 { margin: 2px 0 4px; font-size: 16px; }
+    .step p { margin: 0; color: var(--text); font-size: 14px; }
+
+    footer { background: var(--main); color: rgba(255,255,255,.85); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; padding: 22px 0; }
+    footer a { color: #fff; font-weight: 500; }
+
+    /* ---------- Viewer ---------- */
+    .viewer {
+      position: fixed; inset: 0; z-index: 50; background: #000;
+      display: flex; flex-direction: column;
+      opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s;
+    }
+    .viewer.open { opacity: 1; visibility: visible; }
+    .viewer-bar {
+      flex: none; height: 58px; padding: 0 12px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      background: var(--main); color: #fff;
+    }
+    .vbtn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.12); color: #fff; border: 0; cursor: pointer;
+      font: 500 14px/1 "Roboto", sans-serif; height: 38px; padding: 0 14px; border-radius: 8px;
+    }
+    .vbtn:hover { background: rgba(255,255,255,.22); }
+    .vbtn svg { width: 18px; height: 18px; flex: none; }
+    .switch { display: flex; background: rgba(0,0,0,.25); border-radius: 10px; padding: 4px; gap: 4px; }
+    .switch button {
+      border: 0; background: transparent; color: rgba(255,255,255,.8); cursor: pointer;
+      font: 500 14px/1 "Roboto", sans-serif; padding: 9px 16px; border-radius: 7px; white-space: nowrap;
+    }
+    .switch button[aria-pressed="true"] { background: #fff; color: var(--main); }
+    .viewer-tools { display: flex; gap: 8px; }
+    .viewer-stage { position: relative; flex: 1; }
+    .viewer iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .loader {
+      position: absolute; inset: 0; display: grid; place-items: center; color: #fff;
+      background: #0d1a0b; transition: opacity .3s ease;
+    }
+    .loader.hidden { opacity: 0; pointer-events: none; }
+    .loader div { display: flex; flex-direction: column; align-items: center; gap: 14px; font-size: 14px; opacity: .85; }
+    .spin {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,.15); border-top-color: var(--logo);
+      animation: spin .9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 860px) {
+      .grid, .steps { grid-template-columns: 1fr; }
+      .hero { padding: 120px 0 100px; }
+    }
+    @media (max-width: 600px) {
+      .brand span { display: none; }
+      .site-link .t { display: none; }
+      .hide-sm { display: none; }
+      .switch button { padding: 9px 10px; font-size: 13px; }
+      .vbtn { padding: 0 10px; }
+      .card-body { padding: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pano-track { animation: none; }
+      .card, .btn, .play { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="https://unigeo.uz" aria-label="Geologiya fanlari universiteti">
+        <img src="assets/logo.png" alt="" width="50" height="53" />
+        <span data-i18n-html="brand">Geologiya fanlari <b>universiteti</b></span>
+      </a>
+      <div class="top-actions">
+        <div class="lang" role="group" aria-label="Til">
+          <button type="button" data-lang="uz" aria-pressed="true">UZ</button>
+          <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <a class="site-link" href="https://unigeo.uz">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          <span class="t">unigeo.uz</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-pano" aria-hidden="true"><div class="pano-track"></div></div>
+    <div class="wrap">
+      <span class="eyebrow"><i></i><span data-i18n="eyebrow">360° virtual sayohat</span></span>
+      <h1 data-i18n="title">Universitetimiz bo'ylab istalgan joydan sayohat qiling</h1>
+      <p data-i18n="lead">Kampus va Davlat geologiya muzeyini 360° panoramalarda ko'ring. Quyidagi ikki turdan birini tanlang.</p>
+      <div class="hero-stats">
+        <div><strong>2</strong><span data-i18n="statTours">virtual tur</span></div>
+        <div><strong>85</strong><span data-i18n="statPanos">panorama</span></div>
+        <div><strong>360°</strong><span data-i18n="statView">to'liq ko'rinish</span></div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="tours">
+      <div class="wrap">
+        <h2 class="section-title" data-i18n="choose">Turni tanlang</h2>
+        <div class="grid">
+
+          <article class="card" data-tour="kampus">
+            <div class="card-media" data-open="kampus" role="button" tabindex="0" aria-labelledby="t-kampus">
+              <div class="pano-track" aria-hidden="true"></div>
+              <span class="badge-360"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="12" rx="10" ry="4"/><path d="M12 2a4 10 0 0 1 0 20"/><path d="M12 2a4 10 0 0 0 0 20"/></svg>360°</span>
+              <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span>
+              <span class="count"><span>66</span>&nbsp;<span data-i18n="panos">panorama</span></span>
+            </div>
+            <div class="card-body">
+              <span class="card-kicker" data-i18n="kampusKicker">Universitet hududi</span>
+              <h2 id="t-kampus" data-i18n="kampusTitle">Universitet kampusi</h2>
+              <p data-i18n="kampusText">O'quv binolari, kutubxona, laboratoriyalar, sport majmuasi, talabalar turar joyi va yashil hovlilar bo'ylab sayr qiling.</p>
+              <ul class="chips">
+                <li data-i18n="k1">Kutubxona</li>
+                <li data-i18n="k2">Laboratoriyalar</li>
+                <li data-i18n="k3">Sport zal</li>
+                <li data-i18n="k4">Talabalar turar joyi</li>
+                <li data-i18n="k5">Aktiv zal</li>
+              </ul>
+              <button class="btn" type="button" data-open="kampus">
+                <span data-i18n="start">Sayohatni boshlash</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="card" data-tour="muzey">
+            <div class="card-media" data-open="muzey" role="button" tabindex="0" aria-labelledby="t-muzey">
+              <div class="pano-track" aria-hidden="true"></div>
+              <span class="badge-360"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="12" rx="10" ry="4"/><path d="M12 2a4 10 0 0 1 0 20"/><path d="M12 2a4 10 0 0 0 0 20"/></svg>360°</span>
+              <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span>
+              <span class="count"><span>19</span>&nbsp;<span data-i18n="panos">panorama</span></span>
+            </div>
+            <div class="card-body">
+              <span class="card-kicker" data-i18n="muzeyKicker">Ekspozitsiya</span>
+              <h2 id="t-muzey" data-i18n="muzeyTitle">Davlat geologiya muzeyi</h2>
+              <p data-i18n="muzeyText">Yerning paydo bo'lishidan dinozavrlar davrigacha: muzey zallari, g'orlar va noyob foydali qazilmalar kolleksiyasi.</p>
+              <ul class="chips">
+                <li data-i18n="m1">Dinozavrlar parki</li>
+                <li data-i18n="m2">Tuz g'ori</li>
+                <li data-i18n="m3">Foydali qazilmalar</li>
+                <li data-i18n="m4">Katta portlash</li>
+                <li data-i18n="m5">Geologik jarayonlar</li>
+              </ul>
+              <button class="btn" type="button" data-open="muzey">
+                <span data-i18n="start">Sayohatni boshlash</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="howto">
+      <div class="wrap">
+        <h3 data-i18n="howTitle">Qanday foydalaniladi</h3>
+        <p class="sub" data-i18n="howSub">Hech narsa o'rnatish shart emas: kompyuter va telefonda brauzerda ishlaydi.</p>
+        <div class="steps">
+          <div class="step">
+            <span class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a2 2 0 1 1 4 0v5"/><path d="M13 10a2 2 0 1 1 4 0v2"/><path d="M17 11a2 2 0 1 1 4 0v3a7 7 0 0 1-7 7h-1.5a6 6 0 0 1-4.6-2.2L4 14.5a1.8 1.8 0 0 1 2.7-2.4L9 14V11"/></svg></span>
+            <div><h4 data-i18n="s1t">Aylantiring</h4><p data-i18n="s1p">Sichqoncha yoki barmoq bilan surib, atrofni 360° ko'ring.</p></div>
+          </div>
+          <div class="step">
+            <span class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/></svg></span>
+            <div><h4 data-i18n="s2t">Nuqtalarni bosing</h4><p data-i18n="s2p">Panoramadagi belgilar sizni keyingi xona yoki hovliga olib o'tadi.</p></div>
+          </div>
+          <div class="step">
+            <span class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></span>
+            <div><h4 data-i18n="s3t">To'liq ekran</h4><p data-i18n="s3p">Yaxshiroq taassurot uchun turni to'liq ekranda oching.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year">2026</span> <span data-i18n="footer">Geologiya fanlari universiteti</span></span>
+      <a href="https://unigeo.uz">unigeo.uz</a>
+    </div>
+  </footer>
+
+  <!-- Tur ko'ruvchisi: tanlangan tur shu yerda iframe ichida ochiladi -->
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="360° tur" hidden>
+    <div class="viewer-bar">
+      <button class="vbtn" type="button" id="closeViewer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        <span class="hide-sm" data-i18n="back">Orqaga</span>
+      </button>
+      <div class="switch" role="group">
+        <button type="button" data-switch="kampus" aria-pressed="false" data-i18n="kampusShort">Kampus</button>
+        <button type="button" data-switch="muzey" aria-pressed="false" data-i18n="muzeyShort">Muzey</button>
+      </div>
+      <div class="viewer-tools">
+        <button class="vbtn" type="button" id="fsBtn" data-i18n-title="fullscreen" title="To'liq ekran">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        </button>
+        <a class="vbtn hide-sm" id="newTab" href="kampus/" target="_blank" rel="noopener" data-i18n-title="newTab" title="Yangi oynada ochish">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="viewer-stage">
+      <iframe id="tourFrame" title="360° tur" allow="fullscreen; gyroscope; accelerometer; xr-spatial-tracking" allowfullscreen></iframe>
+      <div class="loader" id="loader"><div><span class="spin"></span><span data-i18n="loading">Tur yuklanmoqda…</span></div></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var TOURS = { kampus: "kampus/", muzey: "muzey/" };
+
+      var I18N = {
+        uz: {
+          brand: "Geologiya fanlari <b>universiteti</b>",
+          eyebrow: "360° virtual sayohat",
+          title: "Universitetimiz bo'ylab istalgan joydan sayohat qiling",
+          lead: "Kampus va Davlat geologiya muzeyini 360° panoramalarda ko'ring. Quyidagi ikki turdan birini tanlang.",
+          statTours: "virtual tur", statPanos: "panorama", statView: "to'liq ko'rinish",
+          choose: "Turni tanlang", panos: "panorama", start: "Sayohatni boshlash",
+          kampusKicker: "Universitet hududi", kampusTitle: "Universitet kampusi",
+          kampusText: "O'quv binolari, kutubxona, laboratoriyalar, sport majmuasi, talabalar turar joyi va yashil hovlilar bo'ylab sayr qiling.",
+          k1: "Kutubxona", k2: "Laboratoriyalar", k3: "Sport zal", k4: "Talabalar turar joyi", k5: "Aktiv zal",
+          muzeyKicker: "Ekspozitsiya", muzeyTitle: "Davlat geologiya muzeyi",
+          muzeyText: "Yerning paydo bo'lishidan dinozavrlar davrigacha: muzey zallari, g'orlar va noyob foydali qazilmalar kolleksiyasi.",
+          m1: "Dinozavrlar parki", m2: "Tuz g'ori", m3: "Foydali qazilmalar", m4: "Katta portlash", m5: "Geologik jarayonlar",
+          howTitle: "Qanday foydalaniladi", howSub: "Hech narsa o'rnatish shart emas: kompyuter va telefonda brauzerda ishlaydi.",
+          s1t: "Aylantiring", s1p: "Sichqoncha yoki barmoq bilan surib, atrofni 360° ko'ring.",
+          s2t: "Nuqtalarni bosing", s2p: "Panoramadagi belgilar sizni keyingi xona yoki hovliga olib o'tadi.",
+          s3t: "To'liq ekran", s3p: "Yaxshiroq taassurot uchun turni to'liq ekranda oching.",
+          footer: "Geologiya fanlari universiteti",
+          back: "Orqaga", kampusShort: "Kampus", muzeyShort: "Muzey",
+          fullscreen: "To'liq ekran", newTab: "Yangi oynada ochish", loading: "Tur yuklanmoqda…",
+          docTitle: "360° virtual sayohat — Geologiya fanlari universiteti"
+        },
+        ru: {
+          brand: "Университет <b>геологических наук</b>",
+          eyebrow: "Виртуальный тур 360°",
+          title: "Прогуляйтесь по нашему университету из любой точки мира",
+          lead: "Кампус и Государственный геологический музей в панорамах 360°. Выберите один из двух туров ниже.",
+          statTours: "виртуальных тура", statPanos: "панорам", statView: "полный обзор",
+          choose: "Выберите тур", panos: "панорам", start: "Начать тур",
+          kampusKicker: "Территория университета", kampusTitle: "Кампус университета",
+          kampusText: "Учебные корпуса, библиотека, лаборатории, спортивный комплекс, студенческое общежитие и зелёные дворы.",
+          k1: "Библиотека", k2: "Лаборатории", k3: "Спортзал", k4: "Общежитие", k5: "Актовый зал",
+          muzeyKicker: "Экспозиция", muzeyTitle: "Государственный геологический музей",
+          muzeyText: "От зарождения Земли до эпохи динозавров: залы музея, пещеры и уникальная коллекция полезных ископаемых.",
+          m1: "Парк динозавров", m2: "Соляная пещера", m3: "Полезные ископаемые", m4: "Большой взрыв", m5: "Геологические процессы",
+          howTitle: "Как пользоваться", howSub: "Ничего устанавливать не нужно: тур работает в браузере на компьютере и телефоне.",
+          s1t: "Вращайте", s1p: "Перетаскивайте мышью или пальцем, чтобы осмотреться на 360°.",
+          s2t: "Нажимайте на точки", s2p: "Метки на панораме переводят в следующий зал или двор.",
+          s3t: "Полный экран", s3p: "Для лучшего впечатления откройте тур на весь экран.",
+          footer: "Университет геологических наук",
+          back: "Назад", kampusShort: "Кампус", muzeyShort: "Музей",
+          fullscreen: "На весь экран", newTab: "Открыть в новой вкладке", loading: "Загрузка тура…",
+          docTitle: "Виртуальный тур 360° — Университет геологических наук"
+        },
+        en: {
+          brand: "University of <b>Geological Sciences</b>",
+          eyebrow: "360° virtual tour",
+          title: "Explore our university from anywhere in the world",
+          lead: "See the campus and the State Geological Museum in 360° panoramas. Choose one of the two tours below.",
+          statTours: "virtual tours", statPanos: "panoramas", statView: "full view",
+          choose: "Choose a tour", panos: "panoramas", start: "Start the tour",
+          kampusKicker: "University grounds", kampusTitle: "University campus",
+          kampusText: "Walk through the academic buildings, library, laboratories, sports complex, student dormitory and green courtyards.",
+          k1: "Library", k2: "Laboratories", k3: "Gym", k4: "Dormitory", k5: "Assembly hall",
+          muzeyKicker: "Exhibition", muzeyTitle: "State Geological Museum",
+          muzeyText: "From the birth of the Earth to the age of dinosaurs: museum halls, caves and a rare collection of minerals.",
+          m1: "Dinosaur park", m2: "Salt cave", m3: "Minerals", m4: "Big Bang", m5: "Geological processes",
+          howTitle: "How it works", howSub: "Nothing to install: the tour runs in the browser on computers and phones.",
+          s1t: "Look around", s1p: "Drag with the mouse or your finger to see all 360°.",
+          s2t: "Tap the markers", s2p: "Markers in the panorama take you to the next room or courtyard.",
+          s3t: "Go full screen", s3p: "Open the tour in full screen for the best experience.",
+          footer: "University of Geological Sciences",
+          back: "Back", kampusShort: "Campus", muzeyShort: "Museum",
+          fullscreen: "Full screen", newTab: "Open in a new tab", loading: "Loading the tour…",
+          docTitle: "360° virtual tour — University of Geological Sciences"
+        }
+      };
+
+      var viewer = document.getElementById("viewer");
+      var frame = document.getElementById("tourFrame");
+      var loader = document.getElementById("loader");
+      var newTab = document.getElementById("newTab");
+      var current = null;
+      var lastFocus = null;
+
+      // ---------- Til ----------
+      function storedLang() {
+        try { return localStorage.getItem("tour-lang"); } catch (e) { return null; }
+      }
+      function setLang(lang) {
+        var dict = I18N[lang] || I18N.uz;
+        document.documentElement.lang = lang;
+        document.title = dict.docTitle;
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var v = dict[el.getAttribute("data-i18n")];
+          if (v != null) el.textContent = v;
+        });
+        document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
+          var v = dict[el.getAttribute("data-i18n-html")];
+          if (v != null) el.innerHTML = v;
+        });
+        document.querySelectorAll("[data-i18n-title]").forEach(function (el) {
+          var v = dict[el.getAttribute("data-i18n-title")];
+          if (v != null) { el.title = v; el.setAttribute("aria-label", v); }
+        });
+        document.querySelectorAll("[data-lang]").forEach(function (b) {
+          b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
+        });
+        try { localStorage.setItem("tour-lang", lang); } catch (e) {}
+      }
+      document.querySelectorAll("[data-lang]").forEach(function (b) {
+        b.addEventListener("click", function () { setLang(b.getAttribute("data-lang")); });
+      });
+
+      // ---------- Ko'ruvchi ----------
+      // URL hash: #kampus yoki #muzey. Shu manzil bilan turni to'g'ridan-to'g'ri ochish mumkin,
+      // brauzerning "orqaga" tugmasi esa ko'ruvchini yopadi.
+      function show(tour) {
+        if (!TOURS[tour]) { hide(); return; }
+        if (!viewer.classList.contains("open")) lastFocus = document.activeElement;
+        if (current !== tour) {
+          current = tour;
+          loader.classList.remove("hidden");
+          frame.src = TOURS[tour];
+          newTab.href = TOURS[tour];
+        }
+        document.querySelectorAll("[data-switch]").forEach(function (b) {
+          b.setAttribute("aria-pressed", String(b.getAttribute("data-switch") === tour));
+        });
+        viewer.hidden = false;
+        requestAnimationFrame(function () { viewer.classList.add("open"); });
+        document.body.style.overflow = "hidden";
+        document.getElementById("closeViewer").focus();
+      }
+      function hide() {
+        if (viewer.hidden) return;
+        viewer.classList.remove("open");
+        document.body.style.overflow = "";
+        if (document.fullscreenElement) document.exitFullscreen();
+        setTimeout(function () {
+          if (viewer.classList.contains("open")) return;
+          viewer.hidden = true;
+          // Yopilganda turni to'xtatamiz: ovoz va video fonda o'ynab qolmasin
+          frame.src = "about:blank";
+          current = null;
+        }, 250);
+        if (lastFocus) lastFocus.focus();
+      }
+      function route() { show(location.hash.slice(1)); }
+
+      frame.addEventListener("load", function () {
+        if (frame.src.indexOf("about:blank") === -1) loader.classList.add("hidden");
+      });
+
+      document.querySelectorAll("[data-open]").forEach(function (el) {
+        function go() { location.hash = el.getAttribute("data-open"); }
+        el.addEventListener("click", go);
+        el.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
+        });
+      });
+      document.querySelectorAll("[data-switch]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          history.replaceState(history.state, "", "#" + b.getAttribute("data-switch"));
+          route();
+        });
+      });
+      document.getElementById("closeViewer").addEventListener("click", function () {
+        if (history.state && history.state.fromPage) history.back();
+        else { history.replaceState(null, "", location.pathname + location.search); hide(); }
+      });
+      document.getElementById("fsBtn").addEventListener("click", function () {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else if (viewer.requestFullscreen) viewer.requestFullscreen();
+        // iPhone Safari elementni to'liq ekranga chiqarmaydi: turning o'zini ochamiz
+        else if (current) location.href = TOURS[current];
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !viewer.hidden && !document.fullscreenElement) {
+          document.getElementById("closeViewer").click();
+        }
+      });
+
+      // Sahifa ichidan ochilganda belgi qo'yamiz: "Orqaga" tugmasi tarixdan qaytaradi
+      window.addEventListener("hashchange", function () {
+        if (TOURS[location.hash.slice(1)] && !history.state) {
+          history.replaceState({ fromPage: true }, "");
+        }
+        route();
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+      // Standart til o'zbekcha; rus tilidagi brauzerlarga ruscha
+      var initial = storedLang();
+      if (!I18N[initial]) initial = (navigator.language || "").slice(0, 2) === "ru" ? "ru" : "uz";
+      setLang(initial);
+      route();
+    })();
+  </script>
+</body>
+</html>
