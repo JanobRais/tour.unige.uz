@@ -112,10 +112,6 @@
       margin: 20px 0 16px; max-width: 760px; letter-spacing: -.01em;
     }
     .hero p { font-size: clamp(16px, 1.8vw, 19px); font-weight: 300; max-width: 620px; margin: 0; opacity: .92; }
-    .hero-stats { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 36px; }
-    .hero-stats div { border-left: 3px solid var(--logo); padding-left: 12px; }
-    .hero-stats strong { display: block; font-size: 28px; font-weight: 700; line-height: 1.1; }
-    .hero-stats span { font-size: 13px; opacity: .8; }
 
     /* ---------- Tour cards ---------- */
     .tours { margin-top: -64px; position: relative; z-index: 2; padding-bottom: 72px; }
@@ -148,10 +144,6 @@
       font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 999px;
     }
     .badge-360 svg { width: 16px; height: 16px; }
-    .count {
-      position: absolute; right: 14px; bottom: 12px; z-index: 1; color: #fff;
-      font-size: 13px; font-weight: 500; display: flex; align-items: center;
-    }
     .play {
       position: absolute; left: 50%; top: 50%; z-index: 1;
       width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%;
@@ -293,11 +285,6 @@
       <span class="eyebrow"><i></i><span data-i18n="eyebrow">360° virtual sayohat</span></span>
       <h1 data-i18n="title">Universitetimiz bo'ylab istalgan joydan sayohat qiling</h1>
       <p data-i18n="lead">Kampus va Davlat geologiya muzeyini 360° panoramalarda ko'ring. Quyidagi ikki turdan birini tanlang.</p>
-      <div class="hero-stats">
-        <div><strong>2</strong><span data-i18n="statTours">virtual tur</span></div>
-        <div><strong>85</strong><span data-i18n="statPanos">panorama</span></div>
-        <div><strong>360°</strong><span data-i18n="statView">to'liq ko'rinish</span></div>
-      </div>
     </div>
   </section>
 
@@ -312,7 +299,6 @@
               <div class="pano-track" aria-hidden="true"></div>
               <span class="badge-360"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="12" rx="10" ry="4"/><path d="M12 2a4 10 0 0 1 0 20"/><path d="M12 2a4 10 0 0 0 0 20"/></svg>360°</span>
               <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span>
-              <span class="count"><span>66</span>&nbsp;<span data-i18n="panos">panorama</span></span>
             </div>
             <div class="card-body">
               <span class="card-kicker" data-i18n="kampusKicker">Universitet hududi</span>
@@ -337,7 +323,6 @@
               <div class="pano-track" aria-hidden="true"></div>
               <span class="badge-360"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="12" rx="10" ry="4"/><path d="M12 2a4 10 0 0 1 0 20"/><path d="M12 2a4 10 0 0 0 0 20"/></svg>360°</span>
               <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span>
-              <span class="count"><span>19</span>&nbsp;<span data-i18n="panos">panorama</span></span>
             </div>
             <div class="card-body">
               <span class="card-kicker" data-i18n="muzeyKicker">Ekspozitsiya</span>
@@ -426,8 +411,7 @@
           eyebrow: "360° virtual sayohat",
           title: "Universitetimiz bo'ylab istalgan joydan sayohat qiling",
           lead: "Kampus va Davlat geologiya muzeyini 360° panoramalarda ko'ring. Quyidagi ikki turdan birini tanlang.",
-          statTours: "virtual tur", statPanos: "panorama", statView: "to'liq ko'rinish",
-          choose: "Turni tanlang", panos: "panorama", start: "Sayohatni boshlash",
+          choose: "Turni tanlang", start: "Sayohatni boshlash",
           kampusKicker: "Universitet hududi", kampusTitle: "Universitet kampusi",
           kampusText: "O'quv binolari, kutubxona, laboratoriyalar, sport majmuasi, talabalar turar joyi va yashil hovlilar bo'ylab sayr qiling.",
           k1: "Kutubxona", k2: "Laboratoriyalar", k3: "Sport zal", k4: "Talabalar turar joyi", k5: "Aktiv zal",
@@ -448,8 +432,7 @@
           eyebrow: "Виртуальный тур 360°",
           title: "Прогуляйтесь по нашему университету из любой точки мира",
           lead: "Кампус и Государственный геологический музей в панорамах 360°. Выберите один из двух туров ниже.",
-          statTours: "виртуальных тура", statPanos: "панорам", statView: "полный обзор",
-          choose: "Выберите тур", panos: "панорам", start: "Начать тур",
+          choose: "Выберите тур", start: "Начать тур",
           kampusKicker: "Территория университета", kampusTitle: "Кампус университета",
           kampusText: "Учебные корпуса, библиотека, лаборатории, спортивный комплекс, студенческое общежитие и зелёные дворы.",
           k1: "Библиотека", k2: "Лаборатории", k3: "Спортзал", k4: "Общежитие", k5: "Актовый зал",
@@ -470,8 +453,7 @@
           eyebrow: "360° virtual tour",
           title: "Explore our university from anywhere in the world",
           lead: "See the campus and the State Geological Museum in 360° panoramas. Choose one of the two tours below.",
-          statTours: "virtual tours", statPanos: "panoramas", statView: "full view",
-          choose: "Choose a tour", panos: "panoramas", start: "Start the tour",
+          choose: "Choose a tour", start: "Start the tour",
           kampusKicker: "University grounds", kampusTitle: "University campus",
           kampusText: "Walk through the academic buildings, library, laboratories, sports complex, student dormitory and green courtyards.",
           k1: "Library", k2: "Laboratories", k3: "Gym", k4: "Dormitory", k5: "Assembly hall",
