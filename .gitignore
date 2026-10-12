@@ -1,3 +1,7 @@
 .DS_Store
 # Windows uchun lokal server: Linux serverda kerak emas
 *.exe
+# Turlar katta (~2 GB): git'da saqlanmaydi, serverga deploy/deploy.sh bilan yuklanadi
+Tour_*/
+/kampus
+/muzey
